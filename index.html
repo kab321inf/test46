@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Відлік до Великодня</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff9a9e;
+            --secondary-color: #fad0c4;
+            --text-color: #4a4a4a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 90%;
+            width: 600px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+            color: #d4a373;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .time-box {
+            background: white;
+            padding: 20px 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #bc6c25;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        .decoration {
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 480px) {
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Світле Воскресіння</h1>
+        <div class="subtitle">Чекаємо на Великдень разом</div>
+        
+        <div class="countdown" id="timer">
+            <div class="time-box">
+                <span class="number" id="days">00</span>
+                <span class="label">Днів</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="hours">00</span>
+                <span class="label">Годин</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Хвилин</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Секунд</span>
+            </div>
+        </div>
+
+        <div class="decoration">🥚 🌿 🕊️</div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            // Дата Великодня (за православним календарем на 2026 рік)
+            // 12 квітня 2026 року
+            const easterDate = new Date("April 12, 2026 00:00:00").getTime();
+            
+            const now = new Date().getTime();
+            const distance = easterDate - now;
+
+            if (distance < 0) {
+                document.querySelector(".container").innerHTML = "<h1>Христос Воскрес!</h1><div class='decoration'>✨🕯️🥨</div>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }
+
+        // Оновлення кожну секунду
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+</body>
+</html>
